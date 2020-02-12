@@ -4,7 +4,7 @@ import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 var varr = require("./Variables")
 
-class Items extends Component {
+class Store extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -15,16 +15,8 @@ class Items extends Component {
     componentDidMount() {
         axios.get('http://localhost:4000/api/product')
         .then(res => {
-            var tmparr = Array();
-            for(var i=0;i<res.data.length;i++)
-            {
-                if(res.data[i].owner == varr.LoggedInUser || varr.LoggedInUser == "none")
-                {
-                    tmparr.push(res.data[i]);
-                }
-            }
             console.log(res.data);
-            this.setState({ users: tmparr })
+            this.setState({ users: res.data })
         });
     }
     
@@ -32,10 +24,15 @@ class Items extends Component {
 
         var data = this.state.users;
 
+        const func = (x)=>{
+            var lol = Number(x.qty) - Number(x.ordered);
+            return (lol);
+        }
+
         return (
         <div className="users" style={{marginTop: "50px"}}>
             <div className="container"> 
-            <h2>Items</h2>
+            <h2>Store</h2>
             <div className="row">
                 {data.length > 0 ? 
                     data.map((user, i) => {                        
@@ -47,14 +44,14 @@ class Items extends Component {
                                         <div className="row">
                                             <div className="col-lg-3">
                                                 <img className="img-thumbnail" style={{marginBottom: "10px"}} src={userImg} alt="user"/><br/>
-                                                <Link to={"product/"+user._id}>
-                                                    <button className="btn btn-outline-dark btn-sm">View Item</button>
+                                                <Link to={"storeitem/"+user._id}>
+                                                    <button className="btn btn-outline-dark btn-sm">Order</button>
                                                 </Link>
                                             </div>   
                                             <div className="col-lg-9">
                                                 <ul className="list-group">
                                                     <li className="list-group-item"><b>Name </b>: {user.name}</li>
-                                                    <li className="list-group-item"><b>Quantity </b>: {user.qty}</li>
+                                                    <li className="list-group-item"><b>Quantity </b>: {func(user)}</li>
                                                     <li className="list-group-item"><b>Price </b>: {user.price}</li>
                                                 </ul>
                                             </div>      
@@ -70,5 +67,4 @@ class Items extends Component {
         );
     }
 }
-export default Items;
-
+export default Store;

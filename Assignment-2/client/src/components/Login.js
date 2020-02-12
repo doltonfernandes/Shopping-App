@@ -34,17 +34,21 @@ class LoginPage extends Component {
         axios.get('http://localhost:4000/api/userr/', userAdd)
         .then(res => { 
             var tmpflag = 0
+            var lol = "none";
             for(var i=0;i<res["data"].length;i++)
             {
             	if(res["data"][i]["name"] == userAdd["name"] && res["data"][i]["password"] == userAdd["password"])
             	{
             		tmpflag = 1;
+                    lol = res["data"][i]["type"];
             		break;
             	}
             }
             if(tmpflag)
             {
-            	varr.LoggedInUser = userAdd["name"];
+                varr.LoggedInUser = userAdd["name"];
+                var tmpflag = 0;
+            	varr.Typev = lol;
             	console.log("Logged In");
            		this.setState({ redirect: this.state.redirect === false });
            		document.getElementById("wrong").remove();
@@ -86,7 +90,7 @@ class LoginPage extends Component {
                 </div>
             </form>
 	          {this.state.redirect && (
-	                <Redirect to={'/users'}/>
+	                <Redirect to={'/il'}/>
 	            )}
           </div>
         );
