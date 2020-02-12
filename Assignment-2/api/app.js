@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mongoose connection
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://salitha:salitha94@ds111622.mlab.com:11622/node_api');
+mongoose.connect('mongodb://localhost/api');
 const db = mongoose.connection;
 
 // Check for DB connection
@@ -44,6 +44,6 @@ app.get('/', function(req, res){
     res.send('Hello from Server');
 })
 
-app.listen(process.env.PORT || 5000, function(){
+app.listen(process.env.PORT || 4000, function(){
     console.log('server started...');
 })
