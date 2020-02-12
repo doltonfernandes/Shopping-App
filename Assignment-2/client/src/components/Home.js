@@ -4,7 +4,7 @@ class Home extends Component {
   render() {
     return (
       <div style={{marginTop: "100px"}}>
-       <h1> Welcome To MERN STACK application!</h1>
+       <h1> Welcome To GeorgeMato!</h1>
       </div>
     )
   }
