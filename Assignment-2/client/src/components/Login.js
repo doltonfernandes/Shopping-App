@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router';
 var varr = require("./Variables")
 
-class AddUserr extends Component {
+class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -93,4 +93,4 @@ class AddUserr extends Component {
     }
 }
 
-export default AddUserr;
+export default LoginPage;

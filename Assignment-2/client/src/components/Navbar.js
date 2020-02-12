@@ -54,6 +54,18 @@ class Navbar extends Component {
         return ;
       }
     }
+    const rend5 = ()=>{
+      if(varr.LoggedInUser != 'none'){
+        return (
+                <li className="nav-item">
+                    <Link className="nav-link" to="/additem">Add Item
+                    </Link>               
+                </li>
+                );
+      } else{
+        return ;
+      }
+    }
     return (
     <div className="Navbar">
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -71,6 +83,10 @@ class Navbar extends Component {
                 {rend1()}
                 {rend2()}
                 {rend3()}
+                {rend5()}
+                <li className="nav-item">
+                    <Link className="nav-link" to="/il">View Items</Link>               
+                </li>
                 </ul>
                 {rend4()}
             </div>
