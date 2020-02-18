@@ -69,7 +69,7 @@ class Store extends Component {
                     break
                 }
             }
-            return (i);
+            return (Number(i).toFixed(2));
         }
 
         return (

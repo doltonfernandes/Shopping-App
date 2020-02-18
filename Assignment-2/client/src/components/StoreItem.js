@@ -11,6 +11,7 @@ class StoreItem extends Component {
     this.state = { 
       user: {},
       rr: {},
+      lol1: "1",
       redirect: false
     }
     this.deleteUser = this.deleteUser.bind(this);
@@ -39,6 +40,11 @@ class StoreItem extends Component {
                 this.setState({ user: tmp })
             });
         });
+        axios.get(`http://localhost:4000/api/order/${this.props.match.params.ido}`)
+        .then(res => {
+          console.log(res)
+            this.setState({ lol1: res.data.rated })
+        });
       }
       else
       {
@@ -47,16 +53,19 @@ class StoreItem extends Component {
           console.log(res)
             this.setState({ user: res.data })
         });
-        // axios.get(`http://localhost:4000/api/userr`)
-        // .then(res => {
-        //   console.log(res)
-        //   	var i=0;
-        //   	for(;i<res.data.length;i++)
-        //   	{
-        //   		if(res.data[i].name == )
-        //   	}
-        //     this.setState({ rr: res.data[i] })
-        // });
+        axios.get(`http://localhost:4000/api/userr`)
+        .then(res => {
+          console.log(res)
+          	var i=0;
+          	for(;i<res.data.length;i++)
+          	{
+          		if(res.data[i].name == this.state.user.owner)
+          		{
+		            this.setState({ rr: res.data[i] })
+          			break;
+          		}
+          	}
+        });
       }
   }
 
@@ -86,7 +95,8 @@ class StoreItem extends Component {
                 qty: tmp.value,
                 status: "Waiting",
                 name_of_customer: varr.LoggedInUser,
-                rated: 0,
+                review: "",
+                rated: -1,
             }
         axios.post('http://localhost:4000/api/order/add', userAdd)
             .then(res1 => { 
@@ -113,6 +123,20 @@ class StoreItem extends Component {
                 this.setState({ redirect: this.state.redirect === false });
             })
             .catch(err => { console.log(err) });
+
+        var tmpvar = document.getElementById("inp3");
+
+        axios.get(`http://localhost:4000/api/order/${this.props.match.params.ido}`)
+        .then(res => {
+        		res.data.rated = tmp.value;
+        		res.data.review = tmpvar.value;
+	          axios.post(`http://localhost:4000/api/order/update/${this.props.match.params.ido}`, res.data)
+	            .then(res1 => { 
+	                console.log(res1);
+	                this.setState({ redirect: this.state.redirect === false });
+	            })
+	            .catch(err => { console.log(err) });
+        });
 	  }
 
   render() {
@@ -123,7 +147,7 @@ class StoreItem extends Component {
                     <input id="inp2" type="text"></input>
           );
       } else{
-        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate"){
+        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
             return (
                     <select id="ratingdrop">
                       <option value="0">0</option>
@@ -138,6 +162,16 @@ class StoreItem extends Component {
       }
     }
 
+    const rend4 = ()=>{
+        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
+            return (
+            	<div>
+				<input type="text" className="form-control" name="Review" id="inp3"/>
+				</div>
+              );
+          }
+    }
+
     const rend2 = ()=>{
       if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
         return (
@@ -146,7 +180,7 @@ class StoreItem extends Component {
                 </form>
           );
       } else{
-          if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate"){
+          if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "0"){
             return (
 			        <form onSubmit={this.funcc}>
                       <button type="submit" className="btn btn-danger" style={{marginLeft: "10px"}}>Submit</button>
@@ -164,8 +198,9 @@ class StoreItem extends Component {
         }
 
         const func2 = (x)=>{
-        	console.log(x);
-        	return (0);
+        	var x1 = this.state.rr.rating;
+        	x1 = String(x1);
+        	return (Number(x1.split(":")[0]).toFixed(2));
         }
 
     const rend3 = ()=>{
@@ -211,6 +246,7 @@ class StoreItem extends Component {
                   <hr/>
                   <div className="row" style={{marginLeft: "0px"}}>
                     {rend1()}
+                    {rend4()}
                     {rend2()}
                   </div> 
                 
