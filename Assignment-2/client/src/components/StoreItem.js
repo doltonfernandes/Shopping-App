@@ -10,9 +10,11 @@ class StoreItem extends Component {
     super(props);
     this.state = { 
       user: {},
+      rr: {},
       redirect: false
     }
     this.deleteUser = this.deleteUser.bind(this);
+    this.funcc = this.funcc.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +47,16 @@ class StoreItem extends Component {
           console.log(res)
             this.setState({ user: res.data })
         });
+        // axios.get(`http://localhost:4000/api/userr`)
+        // .then(res => {
+        //   console.log(res)
+        //   	var i=0;
+        //   	for(;i<res.data.length;i++)
+        //   	{
+        //   		if(res.data[i].name == )
+        //   	}
+        //     this.setState({ rr: res.data[i] })
+        // });
       }
   }
 
@@ -74,6 +86,7 @@ class StoreItem extends Component {
                 qty: tmp.value,
                 status: "Waiting",
                 name_of_customer: varr.LoggedInUser,
+                rated: 0,
             }
         axios.post('http://localhost:4000/api/order/add', userAdd)
             .then(res1 => { 
@@ -84,11 +97,23 @@ class StoreItem extends Component {
       });
   }
 
-  funcc(event) {
-    event.preventDefault();
-    var x = document.getElementById("ratingdrop").value;
-    console.log(this.user.data);
-  }
+	funcc(event) {
+	    event.preventDefault();
+	    var tmp = document.getElementById('ratingdrop');
+	    var x1 = Number(this.state.user.rating.split(":")[0]) , x2 = Number(this.state.user.rating.split(":")[1]);
+	    x1 = x1 * x2;
+	    x2 += 1;
+	    x1 += Number(tmp.value);
+	    x1 /= x2;
+	    x1 = String(x1) + ":" + String(x2);
+	    this.state.user.rating = x1;
+	    axios.post(`http://localhost:4000/api/userr/update/${this.state.user._id}`, this.state.user)
+            .then(res1 => { 
+                console.log(res1);
+                this.setState({ redirect: this.state.redirect === false });
+            })
+            .catch(err => { console.log(err) });
+	  }
 
   render() {
 
@@ -132,9 +157,15 @@ class StoreItem extends Component {
     }
 
 		const func1 = (x)=>{
-            var lol = String(x);
+			console.log(x);
+            var lol = String(x.rating);
             lol = lol.split(":")[0];
-            return (lol);
+            return (Number(lol).toFixed(2));
+        }
+
+        const func2 = (x)=>{
+        	console.log(x);
+        	return (0);
         }
 
     const rend3 = ()=>{
@@ -144,6 +175,7 @@ class StoreItem extends Component {
                     <p className="card-text">Name : {this.state.user.name}</p>                 
                     <p className="card-text">Qty : {func(this.state.user)}</p>
                     <p className="card-text">Price : {this.state.user.price}</p>
+                    <p className="card-text">Rating : {func2(this.state.user)}</p>
                     <p className="card-text">Owner : {this.state.user.owner}</p>
                     <p className="card-text">Status : {this.state.user.status}</p>
                   </div>
@@ -153,7 +185,7 @@ class StoreItem extends Component {
             return (
                       <div className="col-lg-9">
                         <p className="card-text">Name : {this.state.user.name}</p>                 
-                        <p className="card-text">Rating : {func1(this.state.user.rating)}</p>
+                        <p className="card-text">Rating : {func1(this.state.user)}</p>
                       </div>
               );
           }

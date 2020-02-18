@@ -44,6 +44,11 @@ class AddUserr extends Component {
       
       addUser(event) {
         event.preventDefault();
+        if(this.state.type != "Customer" && this.state.type != "Vendor")
+        {
+            alert("Type should be either Customer or Vendor");
+            return ;
+        }
         const userAdd = {
             name: this.state.name,
             email: this.state.email,

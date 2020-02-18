@@ -10,6 +10,7 @@ class Store extends Component {
         this.state = { 
           users: [],
           val: "",
+          rr: [],
           lik: "pricesort"
         }
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -30,6 +31,10 @@ class Store extends Component {
             }
             this.setState({ users: tmp })
         });
+        axios.get('http://localhost:4000/api/userr')
+        .then(res => {
+            this.setState({ rr: res.data })
+        });
     }
 
     handleNameChange(e) {
@@ -48,6 +53,23 @@ class Store extends Component {
         const func = (x)=>{
             var lol = Number(x.qty) - Number(x.ordered);
             return (lol);
+        }
+
+        const func1 = (x)=>{
+            if(this.state.rr.length == 0)
+            {
+                return (0);
+            }
+            var i = 0;
+            for(i=0;i<this.state.rr.length;i++)
+            {
+                if(this.state.rr[i].name == x.owner)
+                {
+                    i = this.state.rr[i].rating.split(":")[0];
+                    break
+                }
+            }
+            return (i);
         }
 
         return (
@@ -70,6 +92,14 @@ class Store extends Component {
 			<Link to={"store/"+this.state.lik}>
                 <button className="btn btn-outline-dark btn-sm">Submit</button>
             </Link>
+            {"\n\n".split('\n').map(function(item, key) {
+              return (
+                <span key={key}>
+                  {item}
+                  <br/>
+                </span>
+              )
+            })}
             <div id="divv1" className="row">
                 {data.length > 0 ? 
                     data.map((user, i) => {                        
@@ -90,6 +120,7 @@ class Store extends Component {
                                                     <li className="list-group-item"><b>Name </b>: {user.name}</li>
                                                     <li className="list-group-item"><b>Quantity </b>: {func(user)}</li>
                                                     <li className="list-group-item"><b>Price </b>: {user.price}</li>
+                                                    <li className="list-group-item"><b>Rating </b>: {func1(user)}</li>
                                                 </ul>
                                             </div>      
                                         </div>

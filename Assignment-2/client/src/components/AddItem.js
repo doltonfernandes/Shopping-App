@@ -77,7 +77,7 @@ class AddItem extends Component {
                 </div>
                 <hr/>
                 <div style={{marginLeft: "0px"}} className="row">
-                    <button type="submit" className="btn btn-warning" style={{marginLeft: "0px"}}>Add User</button>
+                    <button type="submit" className="btn btn-warning" style={{marginLeft: "0px"}}>Add Item</button>
                 </div>
             </form>
             {this.state.redirect && (

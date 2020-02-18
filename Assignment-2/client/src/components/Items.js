@@ -141,7 +141,7 @@ class Dispatch extends Component {
                 if(varr.Typev == 'Customer' && user.status == "Dispatched")
                 {
                 	return (
-		            <Link to={"storeitem/rate"+user.id_of_prod}>
+		            <Link to={"storeitem/rate"+user.id_of_prod+"/"+user._id}>
                     <button className="btn btn-outline-dark btn-sm">Rate Vendor</button>
                     </Link>
                     );

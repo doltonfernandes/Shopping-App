@@ -51,7 +51,6 @@ class EditItem extends Component {
   }
 
   handleStatusChange(e) {
-    this.setState({status: e.target.value})
   }
 
   handleOwnerChange(e) {

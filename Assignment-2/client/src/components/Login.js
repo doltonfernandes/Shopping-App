@@ -47,7 +47,6 @@ class LoginPage extends Component {
             if(tmpflag)
             {
                 varr.LoggedInUser = userAdd["name"];
-                var tmpflag = 0;
             	varr.Typev = lol;
             	console.log("Logged In");
            		this.setState({ redirect: this.state.redirect === false });
@@ -55,12 +54,7 @@ class LoginPage extends Component {
             }
             else
             {
-            	var btn = document.createElement("DIV");
-				btn.innerHTML = "Wrong password or username";
-				btn.id = "wrong";
-				btn.style.textAlign = "center"; 
-				btn.style.color = "blue"; 
-				document.body.appendChild(btn);
+                alert("Wrong username or password");
             	console.log("Wrong password or username")
             }
         })
