@@ -42,6 +42,7 @@ class App extends Component {
           <Route path="/dispatched/:id" exact strict component={DispatchedItem}/>
           <Route path="/store" exact strict component={Store}/>
           <Route path="/storeitem/:id" exact strict component={StoreItem}/>
+          <Route path="/storeitem/:id/:ido" exact strict component={StoreItem}/>
           <Route path="/deleteorder/:id" exact strict component={DeleteOrder}/>
         </div>
       </Router>

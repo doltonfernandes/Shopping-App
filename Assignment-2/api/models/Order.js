@@ -20,6 +20,10 @@ const userschema = mongoose.Schema({
     name_of_customer: {
         type: String,
         required: true
+    },
+    rated: {
+        type: String,
+        required: true
     }
 });
 

@@ -180,7 +180,7 @@ class StoreItem extends Component {
                 </form>
           );
       } else{
-          if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "0"){
+          if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
             return (
 			        <form onSubmit={this.funcc}>
                       <button type="submit" className="btn btn-danger" style={{marginLeft: "10px"}}>Submit</button>

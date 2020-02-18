@@ -283,6 +283,7 @@ router.post('/order/add', function (req, res) {
     user.status = req.body.status;
     user.id_of_prod = req.body.id_of_prod;
     user.name_of_customer = req.body.name_of_customer;
+    user.rated = req.body.rated;
 
     user.save(function(err){
         if(err){
@@ -307,6 +308,7 @@ router.post('/order/update/:id', function (req, res) {
             user.status = req.body.status;
             user.id_of_prod = req.body.id_of_prod;
             user.name_of_customer = req.body.name_of_customer;
+            user.rated = req.body.rated;
 
             user.save().then(user => {
                 res.json({msg: "success"})
