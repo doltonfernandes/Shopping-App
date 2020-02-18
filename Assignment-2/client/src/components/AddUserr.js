@@ -11,6 +11,7 @@ class AddUserr extends Component {
             phone: "",
             password: "",
             type: "",
+            rating: "0:0",
             redirect: false
         }
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -49,6 +50,7 @@ class AddUserr extends Component {
             phone: this.state.phone,
             password: this.state.password,
             type: this.state.type,
+            rating: this.state.rating,
         }
         console.log(userAdd)
         axios.post('http://localhost:4000/api/userr/add', userAdd)
@@ -100,7 +102,7 @@ class AddUserr extends Component {
                 </div>
             </form>
             {this.state.redirect && (
-                <Redirect to={'/users'}/>
+                <Redirect to={'/store'}/>
             )}
           </div>
         );

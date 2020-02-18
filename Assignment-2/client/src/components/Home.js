@@ -5,7 +5,7 @@ class Home extends Component {
     return (
             <div className="container" style={{marginTop: "50px"}}>
       <div style={{marginTop: "100px"}}>
-       <h1> Welcome To GeorgeMato!</h1>
+       <h1> Welcome To DoltKart!</h1>
       </div></div>
     )
   }

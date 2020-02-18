@@ -8,17 +8,38 @@ class Store extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-          users: []
+          users: [],
+          val: "",
+          lik: "pricesort"
         }
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.check = this.check.bind(this);
       }
 
     componentDidMount() {
         axios.get('http://localhost:4000/api/product')
         .then(res => {
             console.log(res.data);
-            this.setState({ users: res.data })
+            var tmp = Array();
+            for(var i=0;i<res.data.length;i++)
+            {
+                if(res.data[i].status == "Available")
+                {
+                    tmp.push(res.data[i]);
+                }
+            }
+            this.setState({ users: tmp })
         });
     }
+
+    handleNameChange(e) {
+    	console.log(this.state.users);
+	    this.setState({val: e.target.value});
+  	}
+
+  	check(e) {
+	    this.setState({lik: e.target.value});
+  	}
     
     render() {
 
@@ -33,7 +54,23 @@ class Store extends Component {
         <div className="users" style={{marginTop: "50px"}}>
             <div className="container"> 
             <h2>Store</h2>
-            <div className="row">
+            <div className="form-group row">
+	            <div className="col-sm-10">
+	                <input type="text" className="form-control" onChange={this.handleNameChange} name="search" value={this.state.val}/>
+	            </div>
+    	        <Link to={"store/"+this.state.val}>
+                    <button className="btn btn-outline-dark btn-sm">Search</button>
+                </Link>
+	        </div>
+            <select id="sort" onChange={this.check}>
+			  <option value="pricesort">Price</option>
+			  <option value="quantitysort">Quantity</option>
+			  <option value="ratingsort">Rating</option>
+			</select>
+			<Link to={"store/"+this.state.lik}>
+                <button className="btn btn-outline-dark btn-sm">Submit</button>
+            </Link>
+            <div id="divv1" className="row">
                 {data.length > 0 ? 
                     data.map((user, i) => {                        
                         return (

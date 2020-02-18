@@ -55,7 +55,7 @@ class AddItem extends Component {
     render() {
         return (
             <div className="container" style={{marginTop: "50px"}}>
-            <h2>Registration Page</h2>
+            <h2>Add Item</h2>
             <form onSubmit={this.addUser} method="user">
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label text-left">Name</label>
