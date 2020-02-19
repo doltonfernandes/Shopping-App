@@ -10,7 +10,7 @@ class AddUserr extends Component {
             email: "",
             phone: "",
             password: "",
-            type: "",
+            type: "Vendor",
             rating: "0:0",
             redirect: false
         }
@@ -44,11 +44,6 @@ class AddUserr extends Component {
       
       addUser(event) {
         event.preventDefault();
-        if(this.state.type != "Customer" && this.state.type != "Vendor")
-        {
-            alert("Type should be either Customer or Vendor");
-            return ;
-        }
         const userAdd = {
             name: this.state.name,
             email: this.state.email,
@@ -90,15 +85,18 @@ class AddUserr extends Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label text-left">password</label>
+                    <label className="col-sm-2 col-form-label text-left">Password</label>
                     <div className="col-sm-10">
                         <input type="password" className="form-control" onChange={this.handlePasswordChange} name="password" value={this.state.password}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label text-left">Type (Vendor/Customer)</label>
+                    <label className="col-sm-2 col-form-label text-left">Type</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" onChange={this.handleTypeChange} name="type" value={this.state.type}/>
+                        <select id="cars" className="form-control"  onChange={this.handleTypeChange} value={this.state.type}>
+                          <option value="Vendor" selected>Vendor</option>
+                          <option value="Customer">Customer</option>
+                        </select>
                     </div>
                 </div>
                 <hr/>
@@ -107,7 +105,7 @@ class AddUserr extends Component {
                 </div>
             </form>
             {this.state.redirect && (
-                <Redirect to={'/store'}/>
+                <Redirect to={'/login'}/>
             )}
           </div>
         );

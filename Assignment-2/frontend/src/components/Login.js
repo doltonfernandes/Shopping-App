@@ -72,7 +72,7 @@ class LoginPage extends Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label text-left">password</label>
+                    <label className="col-sm-2 col-form-label text-left">Password</label>
                     <div className="col-sm-10">
                         <input type="password" className="form-control" onChange={this.handlePasswordChange} name="password" value={this.state.password}/>
                     </div>
