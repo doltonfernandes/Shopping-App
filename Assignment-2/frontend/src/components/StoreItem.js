@@ -12,6 +12,7 @@ class StoreItem extends Component {
       user: {},
       rr: {},
       lol1: "1",
+      lol2: {},
       redirect: false
     }
     this.deleteUser = this.deleteUser.bind(this);
@@ -44,6 +45,10 @@ class StoreItem extends Component {
         .then(res => {
           console.log(res)
             this.setState({ lol1: res.data.rated })
+        });
+        axios.get(`http://localhost:4000/api/order/${this.props.match.params.ido}`)
+        .then(res => {
+            this.setState({ lol2: res.data })
         });
       }
       else
@@ -171,6 +176,14 @@ class StoreItem extends Component {
           }
     }
 
+    const rend5 = ()=>{
+        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 != "-1"){
+            return (
+            	<p>{this.state.lol2.name_of_customer} : {func3(this.state.lol2)}</p>
+              );
+          }
+    }
+
     const rend2 = ()=>{
       if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
         return (
@@ -196,6 +209,13 @@ class StoreItem extends Component {
             return (Number(lol).toFixed(2));
         }
 
+        const func3 = (x)=>{
+			console.log(x);
+            var lol = String(x.rated);
+            lol = lol.split(":")[1];
+            return (lol);
+        }
+
         const func2 = (x)=>{
         	var x1 = this.state.rr.rating;
         	x1 = String(x1);
@@ -210,7 +230,17 @@ class StoreItem extends Component {
                     <p className="card-text">Qty : {func(this.state.user)}</p>
                     <p className="card-text">Price : {this.state.user.price}</p>
                     <p className="card-text">Rating : {func2(this.state.user)}</p>
-                    <p className="card-text">Owner : {this.state.user.owner}</p>
+                    <Link to={"./../review/"+this.state.user.owner}>
+                      <p className="card-text">Owner : {this.state.user.owner}</p>
+                    </Link>
+                    {"\n".split('\n').map(function(item, key) {
+                      return (
+                        <span key={key}>
+                          {item}
+                          <br/>
+                        </span>
+                      )
+                    })}
                     <p className="card-text">Status : {this.state.user.status}</p>
                   </div>
           );
@@ -248,7 +278,7 @@ class StoreItem extends Component {
                     {rend4()}
                     {rend2()}
                   </div> 
-                
+                {rend5()}
               </div>
           </div>
           {this.state.redirect && (

@@ -8,6 +8,7 @@ import Dispatched from './components/Dispatched';
 import DispatchItem from './components/DispatchItem';
 import DispatchedItem from './components/DispatchedItem';
 import Item from './components/Item';
+import Review from './components/Review';
 import Route  from 'react-router-dom/Route';
 import Home from './components/Home';
 import EditUser from './components/EditUser';
@@ -39,6 +40,7 @@ class App extends Component {
           <Route path="/dispatch" exact strict component={Dispatch}/>
           <Route path="/dispatched" exact strict component={Dispatched}/>
           <Route path="/dispatch/:id" exact strict component={DispatchItem}/>
+          <Route path="/review/:id" exact strict component={Review}/>
           <Route path="/dispatched/:id" exact strict component={DispatchedItem}/>
           <Route path="/store" exact strict component={Store}/>
           <Route path="/storeitem/:id" exact strict component={StoreItem}/>
