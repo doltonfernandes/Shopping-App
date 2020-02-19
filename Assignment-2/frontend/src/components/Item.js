@@ -3,7 +3,6 @@ import axios from 'axios';
 import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-var varr = require("./Variables")
 
 class Item extends Component {
   constructor(props) {
@@ -52,7 +51,7 @@ class Item extends Component {
   render() {
 
     const rend1 = ()=>{
-      if(varr.LoggedInUser != 'none'){
+      if(sessionStorage.getItem("LoggedInUser") != 'none'){
         return (
                <p className="card-text">Name : {this.state.user.name}</p>
           );
@@ -62,7 +61,7 @@ class Item extends Component {
     }
 
     const rend2 = ()=>{
-      if(varr.LoggedInUser != 'none'){
+      if(sessionStorage.getItem("LoggedInUser") != 'none'){
         return (
                  <p className="card-text">Qty : {this.state.user.qty}</p>
           );
@@ -72,7 +71,7 @@ class Item extends Component {
     }
 
     const rend3 = ()=>{
-      if(varr.LoggedInUser != 'none' && varr.Typev == "Vendor"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && sessionStorage.getItem("Typev") == "Vendor"){
         return (
                     <p className="card-text">Price : {this.state.user.price}</p>
           );
@@ -82,7 +81,7 @@ class Item extends Component {
     }
 
     const rend4 = ()=>{
-      if(varr.LoggedInUser != 'none' && varr.Typev == "Vendor"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && sessionStorage.getItem("Typev") == "Vendor"){
         return (
                     <p className="card-text">Ordered : {this.state.user.ordered}</p>
           );
@@ -92,7 +91,7 @@ class Item extends Component {
     }
 
     const rend5 = ()=>{
-      if(varr.LoggedInUser != 'none'){
+      if(sessionStorage.getItem("LoggedInUser") != 'none'){
         return (
                     <p className="card-text">Status : {this.state.user.status}</p>
           );

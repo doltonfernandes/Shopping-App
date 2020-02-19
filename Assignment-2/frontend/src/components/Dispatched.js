@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
-var varr = require("./Variables")
 
 class Dispatched extends Component {
     constructor(props) {
@@ -13,14 +12,14 @@ class Dispatched extends Component {
       }
 
     componentDidMount() {
-        if(varr.Typev == "Vendor")
+        if(sessionStorage.getItem("Typev") == "Vendor")
         {
             axios.get('http://localhost:4000/api/product')
             .then(res => {
                 var tmparr = Array();
                 for(var i=0;i<res.data.length;i++)
                 {
-                    if(res.data[i].owner == varr.LoggedInUser && res.data[i].status == "Dispatched")
+                    if(res.data[i].owner == sessionStorage.getItem("LoggedInUser") && res.data[i].status == "Dispatched")
                     {
                         tmparr.push(res.data[i]);
                     }
@@ -29,14 +28,14 @@ class Dispatched extends Component {
                 this.setState({ users: tmparr })
             });
         }
-        if(varr.Typev == "Customer")
+        if(sessionStorage.getItem("Typev") == "Customer")
         {
             axios.get('http://localhost:4000/api/order')
             .then(res => {
                 var tmparr = Array();
                 for(var i=0;i<res.data.length;i++)
                 {
-                    if(res.data[i].name_of_customer == varr.LoggedInUser)
+                    if(res.data[i].name_of_customer == sessionStorage.getItem("LoggedInUser"))
                     {
                         tmparr.push(res.data[i]);
                     }
@@ -52,7 +51,7 @@ class Dispatched extends Component {
         var data = this.state.users;
 
         const rend1 = (user)=>{
-              if(varr.Typev == 'Vendor' && user.status == "Dispatched"){
+              if(sessionStorage.getItem("Typev") == 'Vendor' && user.status == "Dispatched"){
                 return (
                         <ul className="list-group">
                             <li className="list-group-item"><b>Name </b>: {user.name}</li>
@@ -61,7 +60,7 @@ class Dispatched extends Component {
                         </ul>
                         );
               } else{
-                    if(varr.Typev == 'Customer'){
+                    if(sessionStorage.getItem("Typev") == 'Customer'){
                         return (
                                 <ul className="list-group">
                                     <li className="list-group-item"><b>Name </b>: {user.name}</li>
@@ -75,12 +74,12 @@ class Dispatched extends Component {
             }
 
         const rend2 = (user)=>{
-          if(varr.Typev == 'Vendor'){
+          if(sessionStorage.getItem("Typev") == 'Vendor'){
             return (
                     <button className="btn btn-outline-dark btn-sm">View Item</button>
                     );
           } else{
-                if(varr.Typev == 'Customer'){
+                if(sessionStorage.getItem("Typev") == 'Customer'){
                     return (
                     <button className="btn btn-outline-dark btn-sm">Delete</button>);
                   }

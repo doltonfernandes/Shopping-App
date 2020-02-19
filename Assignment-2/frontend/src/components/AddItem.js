@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router';
-var varr = require("./Variables")
 
 class AddItem extends Component {
     constructor(props) {
@@ -10,7 +9,7 @@ class AddItem extends Component {
             name: "",
             qty: "",
             price: "",
-            owner: varr.LoggedInUser,
+            owner: sessionStorage.getItem("LoggedInUser"),
             ordered: "0",
             status: "Available",
             redirect: false

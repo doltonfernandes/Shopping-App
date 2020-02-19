@@ -55,6 +55,15 @@ class Store extends Component {
             return (lol);
         }
 
+        const rend1 = (user)=>{
+            if(sessionStorage.getItem("LoggedInUser") != "none")
+            return (
+                    <Link to={"storeitem/"+user._id}>
+                        <button className="btn btn-outline-dark btn-sm">Order</button>
+                    </Link>
+                );
+        }
+
         const func1 = (x)=>{
             if(this.state.rr.length == 0)
             {
@@ -111,9 +120,7 @@ class Store extends Component {
                                         <div className="row">
                                             <div className="col-lg-3">
                                                 <img className="img-thumbnail" style={{marginBottom: "10px"}} src={userImg} alt="user"/><br/>
-                                                <Link to={"storeitem/"+user._id}>
-                                                    <button className="btn btn-outline-dark btn-sm">Order</button>
-                                                </Link>
+                                                {rend1(user)}
                                             </div>   
                                             <div className="col-lg-9">
                                                 <ul className="list-group">

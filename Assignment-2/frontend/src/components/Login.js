@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router';
-var varr = require("./Variables")
 
 class LoginPage extends Component {
     constructor(props) {
@@ -46,8 +45,8 @@ class LoginPage extends Component {
             }
             if(tmpflag)
             {
-                varr.LoggedInUser = userAdd["name"];
-            	varr.Typev = lol;
+                sessionStorage.setItem("LoggedInUser", userAdd["name"]);
+                sessionStorage.setItem("Typev", lol);
             	console.log("Logged In");
            		this.setState({ redirect: this.state.redirect === false });
            		document.getElementById("wrong").remove();

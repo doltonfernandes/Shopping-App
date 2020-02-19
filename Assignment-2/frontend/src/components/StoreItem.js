@@ -3,7 +3,6 @@ import axios from 'axios';
 import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-var varr = require("./Variables")
 
 class StoreItem extends Component {
   constructor(props) {
@@ -99,7 +98,7 @@ class StoreItem extends Component {
                 name: this.state.user.name,
                 qty: tmp.value,
                 status: "Waiting",
-                name_of_customer: varr.LoggedInUser,
+                name_of_customer: sessionStorage.getItem("LoggedInUser"),
                 review: "",
                 rated: -1,
             }
@@ -146,12 +145,12 @@ class StoreItem extends Component {
   render() {
 
     const rend1 = ()=>{
-      if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
         return (
                     <input id="inp2" type="text"></input>
           );
       } else{
-        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
+        if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
             return (
                     <select id="ratingdrop">
                       <option value="0">0</option>
@@ -167,7 +166,7 @@ class StoreItem extends Component {
     }
 
     const rend4 = ()=>{
-        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
+        if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
             return (
             	<div>
 				<input type="text" className="form-control" name="Review" id="inp3"/>
@@ -177,7 +176,7 @@ class StoreItem extends Component {
     }
 
     const rend5 = ()=>{
-        if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 != "-1"){
+        if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 != "-1"){
             return (
             	<p>{this.state.lol2.name_of_customer} : {func3(this.state.lol2)}</p>
               );
@@ -185,14 +184,14 @@ class StoreItem extends Component {
     }
 
     const rend2 = ()=>{
-      if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
         return (
 		        <form onSubmit={this.deleteUser}>
                   <button type="submit" className="btn btn-danger" style={{marginLeft: "10px"}}>Order</button>
                 </form>
           );
       } else{
-          if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
+          if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 == "-1"){
             return (
 			        <form onSubmit={this.funcc}>
                       <button type="submit" className="btn btn-danger" style={{marginLeft: "10px"}}>Submit</button>
@@ -223,7 +222,7 @@ class StoreItem extends Component {
         }
 
     const rend3 = ()=>{
-      if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) != "rate"){
         return (
                   <div className="col-lg-9">
                     <p className="card-text">Name : {this.state.user.name}</p>                 
@@ -245,7 +244,7 @@ class StoreItem extends Component {
                   </div>
           );
       } else{
-            if(varr.LoggedInUser != 'none' && this.props.match.params.id.substring(0,4) == "rate"){
+            if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) == "rate"){
             return (
                       <div className="col-lg-9">
                         <p className="card-text">Name : {this.state.user.name}</p>                 

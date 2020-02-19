@@ -20,17 +20,20 @@ class Review extends Component {
 
     componentDidMount() {
         axios.get('http://localhost:4000/api/order')
-        .then(res => {
+        .then(async res => {
             console.log(res.data);
             for(var i=0;i<res.data.length;i++)
             {
             	var tot = res.data[i];
-            	axios.get('http://localhost:4000/api/product/'+String(res.data[i].id_of_prod))
+            	var ll = await axios.get('http://localhost:4000/api/product/'+String(res.data[i].id_of_prod))
 		        .then(res1 => {
 		        	if(res1.data.owner == this.props.match.params.id)
 		        	{
 		        		var tmpp = this.state.lol1;
-		        		tmpp.push(tot);
+                        if(String(tot.rated).split(":").length == 2)
+                        {
+    		        		tmpp.push(tot);
+                        }
 			    		this.setState({lol1: tmpp});
 					}
 		        });

@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 // Initialize app
 const router = express.Router();
 // Load models

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-var varr = require("./Variables")
 
 class Navbar extends Component {
   render() {
     const rend4 = ()=>{
-      if(varr.LoggedInUser != 'none'){
+      if(sessionStorage.getItem("LoggedInUser") != 'none'){
         return (
                  <div className="Navbar">
-                 <font color="white">LOGGED IN AS : {varr.LoggedInUser} ( {varr.Typev} ) </font>
+                 <font color="white">LOGGED IN AS : {sessionStorage.getItem("LoggedInUser")} ( {sessionStorage.getItem("Typev")} ) </font>
                 <form action="/" class="btn btn-default">
                     <input type="submit" value="Logout" />
                 </form>
@@ -19,7 +18,7 @@ class Navbar extends Component {
       }
     }
     const rend1 = ()=>{
-      if(varr.LoggedInUser == 'none'){
+      if(sessionStorage.getItem("LoggedInUser") == 'none'){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/login">Login
@@ -31,7 +30,7 @@ class Navbar extends Component {
       }
     }
     const rend5 = ()=>{
-      if(varr.LoggedInUser != 'none' && varr.Typev != "Customer"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && sessionStorage.getItem("Typev") != "Customer"){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/additem">Add Item
@@ -43,7 +42,7 @@ class Navbar extends Component {
       }
     }
     const rend2 = ()=>{
-      if(varr.LoggedInUser == 'none'){
+      if(sessionStorage.getItem("LoggedInUser") == 'none'){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/addr">Register
@@ -55,7 +54,7 @@ class Navbar extends Component {
       }
     }
     const rend3 = ()=>{
-      if(varr.LoggedInUser == 'none' || varr.Typev == "Customer"){
+      if(sessionStorage.getItem("LoggedInUser") == 'none' || sessionStorage.getItem("Typev") == "Customer"){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/store">Store
@@ -67,7 +66,7 @@ class Navbar extends Component {
       }
     }
     const rend6 = ()=>{
-      if(varr.LoggedInUser != 'none' && varr.Typev == "Vendor"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && sessionStorage.getItem("Typev") == "Vendor"){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/dispatch">Dispatch
@@ -79,7 +78,7 @@ class Navbar extends Component {
       }
     }
     const rend7 = ()=>{
-      if(varr.LoggedInUser != 'none'){
+      if(sessionStorage.getItem("LoggedInUser") != 'none'){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/il">View Items</Link>               
@@ -90,7 +89,7 @@ class Navbar extends Component {
       }
     }
     const rend8 = ()=>{
-      if(varr.LoggedInUser != 'none' && varr.Typev == "Vendor"){
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && sessionStorage.getItem("Typev") == "Vendor"){
         return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/dispatched">Dispatched</Link>               
