@@ -12,6 +12,7 @@ class AddItem extends Component {
             owner: sessionStorage.getItem("LoggedInUser"),
             ordered: "0",
             status: "Available",
+            image: "",
             redirect: false
         }
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -34,6 +35,21 @@ class AddItem extends Component {
       
       addUser(event) {
         event.preventDefault();
+        if(this.state.name=='')
+        {
+        	alert("Name can't be left empty");
+        	return ;
+        }
+        if(!(/^\d+$/.test(this.state.qty) && Number(this.state.qty)>0))
+        {
+        	alert("Qty should be a number and greater than 0");
+        	return ;
+        }
+        if(!(/^\d+$/.test(this.state.price) && Number(this.state.price)>0))
+        {
+        	alert("Price should be a number and greater than 0");
+        	return ;
+        }
         const userAdd = {
             name: this.state.name,
             qty: this.state.qty,
@@ -41,6 +57,7 @@ class AddItem extends Component {
             owner: this.state.owner,
             ordered: this.state.ordered,
             status: this.state.status,
+            image: "/user.png",
         }
         console.log(userAdd)
         axios.post('http://localhost:4000/api/product/add', userAdd)

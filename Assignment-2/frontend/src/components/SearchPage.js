@@ -1,3 +1,4 @@
+import FuzzySearch from 'fuzzy-search';
 import React, { Component } from 'react'
 import axios from 'axios';
 import userImg from '../assets/user.png';
@@ -60,15 +61,11 @@ class SearchPage extends Component {
             axios.get('http://localhost:4000/api/product/')
             .then(res => {
                 console.log(res.data);
-                var tmp = Array();
-                for(var i=0;i<res.data.length;i++)
-                {
-                    if(res.data[i].name.toLowerCase().indexOf(this.props.match.params.id.toLowerCase()) > -1 && res.data[i].status == "Available")
-                    {
-                        tmp.push(res.data[i]);
-                    }
-                }
-                this.setState({ users: tmp })
+                var searcher = new FuzzySearch(res.data, ['name','owner'], {
+				  caseSensitive: false,
+				});
+				var result = searcher.search(this.props.match.params.id.toLowerCase());
+                this.setState({ users: result })
             });
         }
     }

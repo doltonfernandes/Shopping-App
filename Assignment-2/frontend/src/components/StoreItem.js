@@ -77,6 +77,11 @@ class StoreItem extends Component {
     event.preventDefault();
     var tmp = document.getElementById('inp2');
     console.log(tmp.value);
+    if(Number(tmp.value)<=0)
+    {
+      alert("Qty should be greater than 0");
+      return ;
+    }
     console.log(this.state.user._id);
     axios.get(`http://localhost:4000/api/product/${this.state.user._id}`)
       .then(res => {

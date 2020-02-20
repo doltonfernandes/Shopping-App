@@ -12,6 +12,7 @@ class EditItem extends Component {
         status: "",
         owner: "",
         ordered: "",
+        image: "",
         redirect: false
     }
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -32,7 +33,8 @@ class EditItem extends Component {
             price: res.data.price,
             status: res.data.status,
             owner: res.data.owner,
-            ordered: res.data.ordered
+            ordered: res.data.ordered,
+            image: res.data.image
         })
         console.log(res)
     });
@@ -61,12 +63,33 @@ class EditItem extends Component {
 
   updateUser(event) {
     event.preventDefault();
+    if(this.state.name=='')
+    {
+        alert("Name can't be left empty");
+        return ;
+    }
+    if(!(/^\d+$/.test(this.state.qty) && Number(this.state.qty)>0))
+    {
+        alert("Qty should be a number and greater than 0");
+        return ;
+    }
+    if(!(/^\d+$/.test(this.state.price) && Number(this.state.price)>0))
+    {
+        alert("Price should be a number and greater than 0");
+        return ;
+    }
+    if(Number(this.state.qty)<Number(this.state.ordered))
+    {
+        alert("Quantity should be greater than Ordered");
+        return ;
+    }
     const userUpdate = {
         name: this.state.name,
         qty: this.state.qty,
         price: this.state.price,
         status: this.state.status,
         owner: this.state.owner,
+        image: this.state.image,
         ordered: this.state.ordered
     }
     console.log(userUpdate)

@@ -12,6 +12,7 @@ class Review extends Component {
           val: "",
           rr: [],
           lol1: [],
+          lol2: "",
           lik: "pricesort"
         }
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -27,7 +28,7 @@ class Review extends Component {
             	var tot = res.data[i];
             	var ll = await axios.get('http://localhost:4000/api/product/'+String(res.data[i].id_of_prod))
 		        .then(res1 => {
-		        	if(res1.data.owner == this.props.match.params.id)
+		        	if(res1.data != null && res1.data.owner == this.props.match.params.id)
 		        	{
 		        		var tmpp = this.state.lol1;
                         if(String(tot.rated).split(":").length == 2)
@@ -39,6 +40,19 @@ class Review extends Component {
 		        });
             }
         });
+        axios.get(`http://localhost:4000/api/userr`)
+          .then(res => {
+            for(var i=0;i<res.data.length;i++)
+            {
+                if(res.data[i].name == this.props.match.params.id)
+                {
+                    var ret = res.data[i].rating;
+                    ret = Number(String(ret).split(":")[0]).toFixed(2);
+                    this.setState({lol2: ret});
+                    break;
+                }
+            }
+          });
     }
 
     handleNameChange(e) {
@@ -62,7 +76,9 @@ class Review extends Component {
         return (
         <div className="users" style={{marginTop: "50px"}}>
             <div className="container"> 
-            <h2>Review</h2>
+            <h2>Reviews</h2>
+            <h3 style={{color:"black"}}>Vendor Name : {this.props.match.params.id}</h3>
+            <h4 style={{color:"black"}}>Average Rating : {this.state.lol2}</h4>
             <div id="divv1" className="row">
                 {data.length > 0 ? 
                     data.map((user, i) => {                        

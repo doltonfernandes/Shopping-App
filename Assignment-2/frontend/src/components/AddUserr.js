@@ -20,7 +20,20 @@ class AddUserr extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.addUser = this.addUser.bind(this);
+        this.ValidateEmail = this.ValidateEmail.bind(this);
+        this.check_name = this.check_name.bind(this);
+        this.check_phone = this.check_phone.bind(this);
       }
+
+		ValidateEmail(mail) 
+		{
+		 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+		  {
+		    return (false)
+		  }
+		    alert("You have entered an invalid email address!")
+		    return (true)
+		}
     
       handleNameChange(e) {
         this.setState({name: e.target.value})
@@ -41,9 +54,36 @@ class AddUserr extends Component {
       handleTypeChange(e) {
         this.setState({type: e.target.value})
       }
+
+      check_phone(e)
+      {
+      	if(/^\d+$/.test(e))
+      	{
+      		return false;
+      	}
+      	else
+      	{
+		    alert("phone should be a number")
+      		return true;
+      	}
+      }
+
+      check_name(e)
+      {
+      	if(e!='')
+      	{
+      		return false;
+      	}
+      	else
+      	{
+		    alert("Name can't be empty")
+      		return true;
+      	}
+      }
       
       addUser(event) {
         event.preventDefault();
+        if(this.ValidateEmail(this.state.email) || this.check_name(this.state.name) || this.check_phone(this.state.phone)){return ;}
         const userAdd = {
             name: this.state.name,
             email: this.state.email,
