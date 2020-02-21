@@ -71,6 +71,9 @@ class AddItem extends Component {
     render() {
         return (
             <div className="container" style={{marginTop: "50px"}}>
+            <br/>
+            <br/>
+            <br/>
             <h2>Add Item</h2>
             <form onSubmit={this.addUser} method="user">
                 <div className="form-group row">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 var varr = require("./Variables")
 
@@ -73,6 +72,11 @@ class Review extends Component {
             return (ret);
         }
 
+        const func1 = (x)=>{
+            var ret = String(x.rated).split(":")[0];
+            return (ret);
+        }
+
         return (
         <div className="users" style={{marginTop: "50px"}}>
             <div className="container"> 
@@ -90,6 +94,7 @@ class Review extends Component {
                                         <div className="row">
                                             <div className="col-lg-9">
                                                 <ul className="list-group">
+                                                    <li className="list-group-item"><b>Rating </b>: {func1(user)}</li>
                                                     <li className="list-group-item"><b>Review </b>: {func(user)}</li>
                                                 </ul>
                                             </div>      

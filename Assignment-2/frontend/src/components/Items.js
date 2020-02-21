@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 
 class Dispatch extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-          users: []
+          users: [],
+          lol1: []
         }
       }
 
@@ -83,22 +83,28 @@ class Dispatch extends Component {
                 }
                 console.log(res.data);
                 this.setState({ users: tmparr })
+                this.setState({ lol1: tmparr })
             });
         }
         if(sessionStorage.getItem("Typev") == "Customer")
         {
             axios.get('http://localhost:4000/api/order')
-            .then(res => {
+            .then(async res => {
                 var tmparr = Array();
+                var tmparr1 = Array();
                 for(var i=0;i<res.data.length;i++)
                 {
                     if(res.data[i].name_of_customer == sessionStorage.getItem("LoggedInUser"))
                     {
-                        tmparr.push(res.data[i]);
+                    	tmparr1.push(res.data[i]);
+                    	await axios.get('http://localhost:4000/api/product/'+res.data[i].id_of_prod)
+				            .then(async res1 => {
+                        		tmparr.push(res1.data);
+				            });
                     }
                 }
-                console.log(res.data);
-                this.setState({ users: tmparr })
+                this.setState({ lol1: tmparr })
+                this.setState({ users: tmparr1 })
             });
         }
     }
@@ -127,6 +133,12 @@ class Dispatch extends Component {
                                 );
                       }
               }
+            }
+
+        const func = (x)=>{
+        		var n = Number(x);
+        		if(n<this.state.lol1.length)return this.state.lol1[n].image;
+        		else return ;
             }
 
         const rend2 = (user)=>{
@@ -170,7 +182,7 @@ class Dispatch extends Component {
                                     <div className="card-body text-left">
                                         <div className="row">
                                             <div className="col-lg-3">
-                                                <img className="img-thumbnail" style={{marginBottom: "10px"}} src={userImg} alt="user"/><br/>
+                                                <img className="img-thumbnail" style={{marginBottom: "10px"}} src={func(i)} alt="user"/><br/>
                                                 {rend2(user)}
                                             </div>   
                                             <div className="col-lg-9">

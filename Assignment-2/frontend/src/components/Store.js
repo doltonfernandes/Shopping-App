@@ -1,3 +1,4 @@
+import FuzzySearch from 'fuzzy-search';
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -8,12 +9,13 @@ class Store extends Component {
         super(props);
         this.state = { 
           users: [],
-          val: "",
+          users2: [],
           rr: [],
-          lik: "pricesort"
+          lik: "pricesort(asc)"
         }
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.check = this.check.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.check = this.check.bind(this);
+        this.subm = this.subm.bind(this);
       }
 
     componentDidMount() {
@@ -29,6 +31,7 @@ class Store extends Component {
                 }
             }
             this.setState({ users: tmp })
+            this.setState({ users2: tmp })
         });
         axios.get('http://localhost:4000/api/userr')
         .then(res => {
@@ -37,14 +40,96 @@ class Store extends Component {
     }
 
     handleNameChange(e) {
-    	console.log(this.state.users);
-	    this.setState({val: e.target.value});
+        if(e.target.value=='')
+        {
+            console.log("EMpty");
+            this.setState({users: this.state.users2});
+        }
+        else
+        {
+            var searcher = new FuzzySearch(this.state.users2, ['name','owner'], {
+              caseSensitive: false,
+            });
+            var result = searcher.search(e.target.value);
+            this.setState({users: result});
+        }
   	}
 
   	check(e) {
 	    this.setState({lik: e.target.value});
   	}
-    
+
+    subm(e) {
+        var tmp = this.state.users;
+        if(this.state.lik == 'pricesort(asc)')
+            tmp.sort(function(a,b){
+                if(Number(a.price)>Number(b.price))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            });
+        if(this.state.lik == 'pricesort(desc)')
+            tmp.sort(function(a,b){
+                if(Number(a.price)<Number(b.price))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            });
+        if(this.state.lik == 'quantitysort(asc)')
+            tmp.sort(function(a,b){
+                if(Number(a.qty)>Number(b.qty))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            });
+        if(this.state.lik == 'quantitysort(desc)')
+            tmp.sort(function(a,b){
+                if(Number(a.qty)<Number(b.qty))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            });
+        if(this.state.lik == 'ratingsort(asc)')
+            tmp.sort(function(a,b){
+                if(Number(a.rating)>Number(b.rating))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            });
+        if(this.state.lik == 'ratingsort(desc)')
+            tmp.sort(function(a,b){
+                if(Number(a.rating)<Number(b.rating))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            });
+        this.setState({users: tmp});
+    }
+
     render() {
 
         var data = this.state.users;
@@ -85,29 +170,21 @@ class Store extends Component {
             <div className="container"> 
             <h2>Store</h2>
             <div className="form-group row">
-	            <div className="col-sm-10">
+	            <div className="col-sm-12">
 	                <input type="text" className="form-control" onChange={this.handleNameChange} name="search" value={this.state.val}/>
 	            </div>
-    	        <Link to={"store/"+this.state.val}>
-                    <button className="btn btn-outline-dark btn-sm">Search</button>
-                </Link>
 	        </div>
             <select id="sort" onChange={this.check}>
-			  <option value="pricesort">Price</option>
-			  <option value="quantitysort">Quantity</option>
-			  <option value="ratingsort">Rating</option>
+              <option value="pricesort(asc)">Price ↑</option>
+			  <option value="pricesort(desc)">Price ↓</option>
+              <option value="quantitysort(asc)">Quantity ↑</option>
+			  <option value="quantitysort(desc)">Quantity ↓</option>
+              <option value="ratingsort(asc)">Rating ↑</option>
+			  <option value="ratingsort(desc)">Rating ↓</option>
 			</select>
-			<Link to={"store/"+this.state.lik}>
-                <button className="btn btn-outline-dark btn-sm">Submit</button>
-            </Link>
-            {"\n\n".split('\n').map(function(item, key) {
-              return (
-                <span key={key}>
-                  {item}
-                  <br/>
-                </span>
-              )
-            })}
+            <button onClick={this.subm} className="btn btn-outline-dark btn-sm">Submit</button>
+            <br/>
+            <br/>
             <div id="divv1" className="row">
                 {data.length > 0 ? 
                     data.map((user, i) => {                        

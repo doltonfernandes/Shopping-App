@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
@@ -12,6 +11,7 @@ class StoreItem extends Component {
       rr: {},
       lol1: "1",
       lol2: {},
+      lol3: [],
       redirect: false
     }
     this.deleteUser = this.deleteUser.bind(this);
@@ -23,6 +23,7 @@ class StoreItem extends Component {
       {
         axios.get(`http://localhost:4000/api/product/${this.props.match.params.id.substring(4,this.props.match.params.id.length)}`)
         .then(res => {
+            this.setState({ lol3: res.data })
           console.log(res)
             axios.get(`http://localhost:4000/api/userr/`)
             .then(res1 => {
@@ -56,6 +57,7 @@ class StoreItem extends Component {
         .then(res => {
           console.log(res)
             this.setState({ user: res.data })
+            this.setState({ lol3: res.data })
         });
         axios.get(`http://localhost:4000/api/userr`)
         .then(res => {
@@ -183,7 +185,10 @@ class StoreItem extends Component {
     const rend5 = ()=>{
         if(sessionStorage.getItem("LoggedInUser") != 'none' && this.props.match.params.id.substring(0,4) == "rate" && this.state.lol1 != "-1"){
             return (
-            	<p>{this.state.lol2.name_of_customer} : {func3(this.state.lol2)}</p>
+            <div>
+              <h5>Customer Name : {this.state.lol2.name_of_customer}</h5>
+            	<p>Review : {func3(this.state.lol2)}</p>
+            </div>
               );
           }
     }
@@ -214,7 +219,7 @@ class StoreItem extends Component {
         }
 
         const func3 = (x)=>{
-			console.log(x);
+            console.log(x);
             var lol = String(x.rated);
             lol = lol.split(":")[1];
             return (lol);
@@ -237,14 +242,7 @@ class StoreItem extends Component {
                     <Link to={"./../review/"+this.state.user.owner}>
                       <p className="card-text">Owner : {this.state.user.owner}</p>
                     </Link>
-                    {"\n".split('\n').map(function(item, key) {
-                      return (
-                        <span key={key}>
-                          {item}
-                          <br/>
-                        </span>
-                      )
-                    })}
+                    <br/>
                     <p className="card-text">Status : {this.state.user.status}</p>
                   </div>
           );
@@ -272,7 +270,7 @@ class StoreItem extends Component {
               <div className="card-body"> 
                 <div className="row">
                   <div className="col-lg-3">
-                  <img className="img-thumbnail" style={{marginBottom: "10px"}} src={userImg} alt="user"/><br/>                                            
+                  <img className="img-thumbnail" style={{marginBottom: "10px"}} src={this.state.lol3.image} alt="user"/><br/>                                            
                   </div>
                   {rend3()}
                 </div>                                        

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 
 class Dispatch extends Component {
@@ -100,7 +99,7 @@ class Dispatch extends Component {
                                     <div className="card-body text-left">
                                         <div className="row">
                                             <div className="col-lg-3">
-                                                <img className="img-thumbnail" style={{marginBottom: "10px"}} src={userImg} alt="user"/><br/>
+                                                <img className="img-thumbnail" style={{marginBottom: "10px"}} src={user.image} alt="user"/><br/>
                                                 <Link to={"dispatch/"+user._id}>
                                                 {rend2()}
                                                 </Link>

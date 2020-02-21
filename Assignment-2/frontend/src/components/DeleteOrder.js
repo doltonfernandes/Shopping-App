@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 var varr = require("./Variables")

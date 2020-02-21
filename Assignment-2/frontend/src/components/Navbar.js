@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   render() {
+
     const rend4 = ()=>{
       if(sessionStorage.getItem("LoggedInUser") != 'none'){
         return (
@@ -99,6 +100,18 @@ class Navbar extends Component {
         return ;
       }
     }
+    const rend9 = ()=>{
+      var stt = "/review/" + sessionStorage.getItem("LoggedInUser");
+      if(sessionStorage.getItem("LoggedInUser") != 'none' && sessionStorage.getItem("Typev") == "Vendor"){
+        return (
+                <li className="nav-item">
+                    <Link className="nav-link" to={stt}>View Reviews</Link>               
+                </li>
+          );
+      } else{
+        return ;
+      }
+    }
     return (
     <div className="Navbar">
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -116,6 +129,7 @@ class Navbar extends Component {
                 {rend7()}
                 {rend3()}
                 {rend8()}
+                {rend9()}
                 </ul>
                 {rend4()}
             </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import userImg from '../assets/user.png';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
@@ -107,7 +106,7 @@ class Item extends Component {
               <div className="card-body"> 
                 <div className="row">
                   <div className="col-lg-3">
-                  <img className="img-thumbnail" style={{marginBottom: "10px"}} src={userImg} alt="user"/><br/>                                            
+                  <img className="img-thumbnail" style={{marginBottom: "10px"}} src={this.state.user.image} alt="user"/><br/>                                            
                   </div>
                   <div className="col-lg-9">
                     {rend1()}
