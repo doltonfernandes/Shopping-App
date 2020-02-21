@@ -12,13 +12,14 @@ class AddItem extends Component {
             owner: sessionStorage.getItem("LoggedInUser"),
             ordered: "0",
             status: "Available",
-            image: "",
+            image: "/user.png",
             redirect: false
         }
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleQtyChange = this.handleQtyChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.addUser = this.addUser.bind(this);
+        this.getBaseUrl = this.getBaseUrl.bind(this);
       }
     
       handleNameChange(e) {
@@ -57,18 +58,37 @@ class AddItem extends Component {
             owner: this.state.owner,
             ordered: this.state.ordered,
             status: this.state.status,
-            image: "/user.png",
+            image: this.state.image,
         }
-        console.log(userAdd)
+
+        console.log("YO");
+        console.log(userAdd);
+        console.log("YO");
+
         axios.post('http://localhost:4000/api/product/add', userAdd)
         .then(res => { 
             console.log(res);
-            this.setState({ redirect: this.state.redirect === false });
         })
         .catch(err => { console.log(err) });
+        this.setState({ redirect: this.state.redirect === false });
       }
+
+        getBaseUrl (event)  {
+            event.preventDefault();
+            var file = document.querySelector('input[type=file]')['files'][0];
+            var reader = new FileReader();
+            var baseString;
+            var lol = this;
+            reader.onloadend = function () {
+                baseString = reader.result;
+                lol.setState({image: baseString})
+            };
+            reader.readAsDataURL(file);
+        }
     
     render() {
+
+
         return (
             <div className="container" style={{marginTop: "50px"}}>
             <br/>
@@ -94,6 +114,7 @@ class AddItem extends Component {
                         <input type="text" className="form-control" onChange={this.handlePriceChange} name="price" value={this.state.price}/>
                     </div>
                 </div>
+                <input type="file" onChange={this.getBaseUrl}/>
                 <hr/>
                 <div style={{marginLeft: "0px"}} className="row">
                     <button type="submit" className="btn btn-warning" style={{marginLeft: "0px"}}>Add Item</button>

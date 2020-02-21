@@ -49,7 +49,6 @@ class LoginPage extends Component {
                 sessionStorage.setItem("Typev", lol);
             	console.log("Logged In");
            		this.setState({ redirect: this.state.redirect === false });
-           		document.getElementById("wrong").remove();
             }
             else
             {

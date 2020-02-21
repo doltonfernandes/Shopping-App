@@ -24,8 +24,8 @@ db.on('error', function(){
 });
 
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
 
 // Initialize CORS middleware
 const cors = require('cors');
