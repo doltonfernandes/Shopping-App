@@ -203,6 +203,7 @@ router.post('/product/add', function (req, res) {
     user.price = req.body.price;
     user.owner = req.body.owner;
     user.status = req.body.status;
+    user.image = req.body.image;
 
     user.save(function(err){
         if(err){
@@ -228,6 +229,7 @@ router.post('/product/update/:id', function (req, res) {
             user.price = req.body.price;
             user.owner = req.body.owner;
             user.status = req.body.status;
+            user.image = req.body.image;
     
             user.save().then(user => {
                 res.json({msg: "success"})

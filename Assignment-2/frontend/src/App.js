@@ -12,7 +12,6 @@ import Review from './components/Review';
 import Route  from 'react-router-dom/Route';
 import Home from './components/Home';
 import EditUser from './components/EditUser';
-import SearchPage from './components/SearchPage';
 import EditItem from './components/EditItem';
 import AddUserr from './components/AddUserr';
 import AddItem from './components/AddItem';
@@ -29,7 +28,6 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Route path="/" exact strict component={Home}/>
-          <Route path="/store/:id" exact strict component={SearchPage}/>
           <Route path="/product/:id" exact strict component={Item}/>
           <Route path="/users/:id/edit" exact strict component={EditUser}/>
           <Route path="/product/:id/edit" exact strict component={EditItem}/>
