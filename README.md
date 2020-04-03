@@ -10,9 +10,6 @@ Made as a part of the SSAD course
 ##How to start the app:
 
 	Go inside the folder named 'backend' and run the command 'node app.js'
-
-##How to setup frontend server:
-
 	Open a new terminal instance
 	Go inside the folder named 'frontend' and run the command 'npm start'
 
