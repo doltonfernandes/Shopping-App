@@ -2,12 +2,12 @@
 
 Made as a part of the SSAD course
 
-##How to install dependencies:
+## How to install dependencies:
 	
 	Go inside the folder named 'frontend' and run the command 'npm install'
 	Go inside the folder named 'backend' and run the command 'npm install'
 
-##How to start the app:
+## How to start the app:
 
 	Go inside the folder named 'backend' and run the command 'node app.js'
 	Open a new terminal instance
